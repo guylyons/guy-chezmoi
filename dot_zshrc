@@ -1,0 +1,106 @@
+# =============================================================================
+# PATH
+# =============================================================================
+export PATH="$HOME/.local/bin:$PATH"
+
+# =============================================================================
+# Colors / general env
+# =============================================================================
+export CLICOLOR=1
+export LSCOLORS=ExGxFxdxCxDxDxhbadExEx
+# GNU-style colors, used by zsh completion list-colors below.
+export LS_COLORS="di=1;36:ln=35:so=32:pi=33:ex=1;31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
+
+# =============================================================================
+# Aliases
+# =============================================================================
+alias v=nvim
+alias b=brew
+alias l='ls -la'
+alias cim='ddev drush cr && ddev drush cim'
+alias cex='ddev drush cr && ddev drush cex'
+alias cr='ddev drush cr'
+
+# =============================================================================
+# Completions  (this whole section must run in this order)
+# =============================================================================
+
+# --- 1. fpath: add completion dirs BEFORE compinit -------------------------
+# zsh-completions (extra defs) + Homebrew's per-tool completions
+# (_brew, _docker, _rg, _fd, _uv, _aws, _fnm, _zoxide, ...).
+fpath=(
+  /opt/homebrew/share/zsh-completions
+  /opt/homebrew/share/zsh/site-functions
+  $fpath
+)
+
+# --- 2. completion behaviour (setopts) -------------------------------------
+setopt COMPLETE_IN_WORD     # complete from both ends of a word
+setopt ALWAYS_TO_END        # move cursor to end after completion
+setopt AUTO_MENU            # show completion menu on a successive tab
+setopt AUTO_LIST            # list choices on an ambiguous completion
+setopt AUTO_PARAM_SLASH     # add trailing slash when completing a directory
+unsetopt MENU_COMPLETE      # do not auto-insert the first match
+unsetopt FLOW_CONTROL       # free up ^S / ^Q
+
+# --- 3. initialize compinit (cached; full run at most once/day) ------------
+autoload -Uz compinit
+if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qNmh+24) ]]; then
+  compinit                  # >24h old (or missing): full run w/ security check
+else
+  compinit -C               # fresh: skip the check, load fast
+fi
+
+# --- 4. completion styling (zstyle) ----------------------------------------
+# Case-insensitive, then partial-word, then substring matching.
+zstyle ':completion:*' matcher-list \
+  'm:{a-zA-Z}={A-Za-z}' \
+  'r:|[._-]=* r:|=*' \
+  'l:|=* r:|=*'
+
+zstyle ':completion:*' menu no                       # let fzf-tab handle the menu
+zstyle ':completion:*' group-name ''                 # group matches by category
+zstyle ':completion:*:descriptions' format '[%d]'    # header per group (fzf-tab uses this)
+zstyle ':completion:*:warnings' format '%F{red}no matches%f'
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*:*:*:*:processes' command 'ps -u $USER -o pid,user,comm -w'
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+
+# Completion cache (speeds up e.g. apt/brew style completers)
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompcache"
+
+# =============================================================================
+# Tool integrations
+# =============================================================================
+eval "$(fnm env --use-on-cd --shell zsh)"
+eval "$(zoxide init zsh)"
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# =============================================================================
+# Plugins  (ORDER MATTERS: fzf-tab, then autosuggestions, then highlighting)
+# =============================================================================
+# fzf-tab: replaces the completion menu with an fzf picker. Load after
+# compinit + zstyles, before autosuggestions/syntax-highlighting.
+[ -f /opt/homebrew/share/fzf-tab/fzf-tab.zsh ] && source /opt/homebrew/share/fzf-tab/fzf-tab.zsh
+# Preview directory contents when completing `cd`, and let < / > switch groups.
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls -1 --color=always -- $realpath'
+zstyle ':fzf-tab:*' switch-group '<' '>'
+
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# Syntax highlighting MUST be sourced last.
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# =============================================================================
+# Prompt  (starship, keep last so it wraps everything)
+# =============================================================================
+eval "$(starship init zsh)"
+
+# bun completions
+[ -s "/Users/glyons/.bun/_bun" ] && source "/Users/glyons/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

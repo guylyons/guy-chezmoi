@@ -1,0 +1,26 @@
+#!/bin/sh
+# Installs Homebrew (if missing) and everything in the Brewfile.
+#
+# chezmoi runs this automatically during `chezmoi apply`:
+#   run_once_ = only re-runs when this script's contents change
+#   before_   = runs BEFORE dotfiles are written, so tools exist
+#               before .zshrc tries to source them
+set -eu
+
+# Install Homebrew if it isn't already present.
+if ! command -v brew >/dev/null 2>&1; then
+  echo "Homebrew not found — installing..."
+  NONINTERACTIVE=1 /bin/bash -c \
+    "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+  # Add brew to PATH for the rest of this script (Apple Silicon vs Intel).
+  if [ -x /opt/homebrew/bin/brew ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  elif [ -x /usr/local/bin/brew ]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+  fi
+fi
+
+echo "Installing packages from Brewfile..."
+# chezmoi sets CHEZMOI_SOURCE_DIR when running scripts.
+brew bundle --file="${CHEZMOI_SOURCE_DIR}/Brewfile"
