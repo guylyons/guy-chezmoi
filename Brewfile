@@ -17,3 +17,8 @@ brew "zsh-completions"         # extra completion defs (fpath)
 
 # --- editor (aliased `v=nvim` in .zshrc) ---
 brew "neovim"
+
+# --- local dev: ddev + Docker provider ---
+tap "ddev/ddev"
+brew "ddev"        # Drupal/PHP local dev (aliases cim/cex/cr in .zshrc)
+cask "orbstack"    # Docker provider for ddev (lightweight Docker Desktop alt)
