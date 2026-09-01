@@ -1,0 +1,33 @@
+font-family = Source Code Pro
+font-size = 16
+
+theme = Material Ocean
+
+window-padding-x = 10
+window-padding-y = 10
+window-decoration = true
+
+cursor-style = block
+cursor-style-blink = true
+
+scrollback-limit = 10000
+
+confirm-close-surface = false
+
+# Selection & clipboard
+# Auto-copy selected text to the system clipboard; paste with middle-click or Cmd+V
+copy-on-select = clipboard
+
+# Background
+# Solid pure-black background (overrides the theme's background color)
+background = #000000
+background-opacity = 1
+background-blur = true
+
+# macOS / editing quality-of-life
+macos-option-as-alt = true
+mouse-hide-while-typing = true
+window-save-state = always
+
+# Shell integration (better cursor, prompt jumping, no-newline sudo, window title)
+shell-integration-features = cursor,sudo,title
