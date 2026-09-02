@@ -30,7 +30,6 @@ cask "ghostty"      # terminal emulator (config tracked in dot_config/ghostty)
 # --- languages / PHP dev (on PATH in .zshrc) ---
 brew "go"              # go toolchain (~/go/bin on PATH)
 brew "composer"        # PHP dependency manager (~/.composer/vendor/bin on PATH)
-brew "postgresql@18"   # postgres client/server (psql on PATH)
 
 # --- local dev: ddev + Docker provider ---
 tap "ddev/ddev"
