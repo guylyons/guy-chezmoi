@@ -29,7 +29,7 @@ cask "ghostty"               # terminal emulator (config tracked in dot_config/g
 cask "visual-studio-code"    # VS Code editor
 cask "dbeaver-community"      # database GUI client
 tap "d12frosted/emacs-plus"
-cask "emacs-plus-app"        # GNU Emacs stable (config cloned via .chezmoiexternal.toml)
+cask "emacs-plus-app@master" # GNU Emacs (master build; config cloned via .chezmoiexternal.toml)
 
 # --- languages / PHP dev (on PATH in .zshrc) ---
 brew "go"              # go toolchain (~/go/bin on PATH)
