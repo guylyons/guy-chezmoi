@@ -1,0 +1,16 @@
+# External repos chezmoi clones/pulls on `chezmoi apply`.
+# See: https://www.chezmoi.io/reference/special-files/chezmoiexternal-format/
+
+[".config/nvim"]
+    type = "git-repo"
+    url = "git@github.com:guylyons/neovim-config.git"
+    refreshPeriod = "168h"          # re-pull at most weekly (force with --refresh-externals)
+    [".config/nvim".pull]
+        args = ["--ff-only"]        # never auto-merge; fail if local diverges
+
+[".emacs.d"]
+    type = "git-repo"
+    url = "git@github.com:guylyons/emacs-config.git"
+    refreshPeriod = "168h"
+    [".emacs.d".pull]
+        args = ["--ff-only"]
