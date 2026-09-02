@@ -9,6 +9,8 @@ brew "bun"        # JS runtime / package manager
 brew "pnpm"       # fast, disk-efficient JS package manager
 brew "zoxide"     # smarter cd
 brew "yazi"       # terminal file manager (uses fd/rg/fzf/zoxide, already above)
+brew "jj"         # jujutsu: git-compatible version control
+brew "jq"         # command-line JSON processor
 
 # --- required by .zshrc so the shell starts clean ---
 brew "fnm"                     # node version manager (eval on startup)
