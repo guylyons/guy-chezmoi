@@ -6,6 +6,7 @@ brew "fzf"        # fuzzy finder
 brew "ripgrep"    # fast grep (rg); also used by .vimrc grepprg
 brew "starship"   # shell prompt
 brew "bun"        # JS runtime / package manager
+brew "pnpm"       # fast, disk-efficient JS package manager
 brew "zoxide"     # smarter cd
 
 # --- required by .zshrc so the shell starts clean ---
