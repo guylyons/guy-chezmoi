@@ -1,7 +1,24 @@
 # =============================================================================
-# PATH
+# Shell options
+# =============================================================================
+set -o vi
+export EDITOR="nvim"
+
+# =============================================================================
+# PATH  (ORDER MATTERS: earlier entries win)
 # =============================================================================
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.composer/vendor/bin:$PATH"
+export PATH="$HOME/.symfony5/bin:$PATH"
+export PATH="$HOME/.lando/bin:$PATH"
+export PATH="$HOME/.opencode/bin:$PATH"
+export PATH="$HOME/go/bin:$PATH"
+export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH"
+
+# =============================================================================
+# CDPATH
+# =============================================================================
+export CDPATH="$HOME/github:$CDPATH"
 
 # =============================================================================
 # Colors / general env
@@ -14,12 +31,39 @@ export LS_COLORS="di=1;36:ln=35:so=32:pi=33:ex=1;31:bd=34;46:cd=34;43:su=30;41:s
 # =============================================================================
 # Aliases
 # =============================================================================
+# editors / tools
 alias v=nvim
 alias b=brew
-alias l='ls -la'
+alias bu='brew update'
+alias n=npm
+alias ls=eza
+alias ll='ls -alG'
+alias l='ll'
+alias config='cd ~/.config/nvim'
+alias ai-fix='pbpaste | ollama run qwen2.5:7b'
+alias bitchx='luit -encoding CP437 bitchx'
+
+# git
+alias g=git
+alias gs='git status'
+alias gb='git branch'
+alias gc='git commit'
+alias gr='git revert'
+alias gp='git push'
+alias gpom='git push origin main'
+
+# docker
+alias d=docker
+alias de='docker exec'
+alias dp='docker ps'
+alias deit='docker exec -it'
+
+# ddev / drush
+alias cr='ddev drush cr'
 alias cim='ddev drush cr && ddev drush cim'
 alias cex='ddev drush cr && ddev drush cex'
-alias cr='ddev drush cr'
+alias rollback='ddev drush mrs guygrations_nodes && ddev drush mr guygrations_nodes && ddev drush cr'
+alias import='ddev drush mim guygrations_nodes'
 
 # =============================================================================
 # Completions  (this whole section must run in this order)
@@ -76,7 +120,11 @@ zstyle ':completion:*' cache-path "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompcach
 # =============================================================================
 eval "$(fnm env --use-on-cd --shell zsh)"
 eval "$(zoxide init zsh)"
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source <(fzf --zsh) 2>/dev/null || { [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh; }
+eval "$(~/.local/bin/mise activate zsh)"   # manages ruby (see ~/.config/mise/config.toml)
+
+# jj completions
+source <(jj util completion zsh) 2>/dev/null
 
 # =============================================================================
 # Plugins  (ORDER MATTERS: fzf-tab, then autosuggestions, then highlighting)
@@ -96,11 +144,76 @@ source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # =============================================================================
 # Prompt  (starship, keep last so it wraps everything)
 # =============================================================================
+export STARSHIP_CACHE="$HOME/.cache/starship"
+export STARSHIP_LOG=error
 eval "$(starship init zsh)"
 
-# bun completions
-[ -s "/Users/glyons/.bun/_bun" ] && source "/Users/glyons/.bun/_bun"
-
+# =============================================================================
 # bun
+# =============================================================================
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+
+# =============================================================================
+# pnpm
+# =============================================================================
+export PNPM_HOME="$HOME/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
+
+# =============================================================================
+# Local secrets / machine-specific overrides (NOT tracked by chezmoi/git)
+# Put e.g.  export OPENAI_API_KEY="..."  in ~/.zshrc.local
+# =============================================================================
+[ -f "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
+
+# =============================================================================
+# iTerm2 shell integration
+# =============================================================================
+[[ -e "${HOME}/.iterm2_shell_integration.zsh" ]] && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# =============================================================================
+# Emacs vterm integration
+# =============================================================================
+# Some of the most useful features in emacs-libvterm require shell-side
+# configuration so the shell can send information to vterm via escaped sequences.
+vterm_printf() {
+    if [ -n "$TMUX" ] && ([ "${TERM%%-*}" = "tmux" ] || [ "${TERM%%-*}" = "screen" ]); then
+        # Tell tmux to pass the escape sequences through
+        printf "\ePtmux;\e\e]%s\007\e\\" "$1"
+    elif [ "${TERM%%-*}" = "screen" ]; then
+        printf "\eP\e]%s\007\e\\" "$1"
+    else
+        printf "\e]%s\e\\" "$1"
+    fi
+}
+
+# Completely clear the buffer (everything not on screen is erased) inside vterm.
+if [[ "$INSIDE_EMACS" = 'vterm' ]]; then
+    alias clear='vterm_printf "51;Evterm-clear-scrollback";tput clear'
+fi
+
+# Execute Emacs commands directly from the shell (see vterm-eval-cmds).
+vterm_cmd() {
+    local vterm_elisp
+    vterm_elisp=""
+    while [ $# -gt 0 ]; do
+        vterm_elisp="$vterm_elisp""$(printf '"%s" ' "$(printf "%s" "$1" | sed -e 's|\\|\\\\|g' -e 's|"|\\"|g')")"
+        shift
+    done
+    vterm_printf "51;E$vterm_elisp"
+}
+
+# Change the buffer title based on info from the shell.
+autoload -U add-zsh-hook
+add-zsh-hook -Uz chpwd (){ print -Pn "\e]2;%m:%2~\a" }
+
+# Sync directory/host with Emacs; "51;A" also marks the end of the prompt.
+vterm_prompt_end() {
+    vterm_printf "51;A$(whoami)@$(hostname):$(pwd)"
+}
+setopt PROMPT_SUBST
+PROMPT=$PROMPT'%{$(vterm_prompt_end)%}'
