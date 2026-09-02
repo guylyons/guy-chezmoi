@@ -2,9 +2,15 @@
 # Installs Homebrew (if missing) and everything in the Brewfile.
 #
 # chezmoi runs this automatically during `chezmoi apply`:
-#   run_once_ = only re-runs when this script's contents change
-#   before_   = runs BEFORE dotfiles are written, so tools exist
-#               before .zshrc tries to source them
+#   run_onchange_ = re-runs when this rendered script's contents change
+#   before_       = runs BEFORE dotfiles are written, so tools exist
+#                   before .zshrc tries to source them
+#
+# The Brewfile hash below is templated in so that ANY change to the
+# Brewfile changes this script's rendered contents, which retriggers
+# the install. (A plain run_once_ script never re-ran on Brewfile edits.)
+#
+# Brewfile hash: {{ include "Brewfile" | sha256sum }}
 set -eu
 
 # Install Homebrew if it isn't already present.
