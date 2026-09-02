@@ -8,6 +8,7 @@ brew "starship"   # shell prompt
 brew "bun"        # JS runtime / package manager
 brew "pnpm"       # fast, disk-efficient JS package manager
 brew "zoxide"     # smarter cd
+brew "yazi"       # terminal file manager (uses fd/rg/fzf/zoxide, already above)
 
 # --- required by .zshrc so the shell starts clean ---
 brew "fnm"                     # node version manager (eval on startup)
