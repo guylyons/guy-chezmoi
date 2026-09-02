@@ -4,6 +4,7 @@
 # --- always want these ---
 brew "fzf"        # fuzzy finder
 brew "ripgrep"    # fast grep (rg); also used by .vimrc grepprg
+brew "fd"         # fast find alternative (used by yazi)
 brew "starship"   # shell prompt
 brew "bun"        # JS runtime / package manager
 brew "pnpm"       # fast, disk-efficient JS package manager
