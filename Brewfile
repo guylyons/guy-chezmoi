@@ -17,8 +17,9 @@ brew "zsh-autosuggestions"     # sourced by .zshrc
 brew "zsh-syntax-highlighting" # sourced by .zshrc
 brew "zsh-completions"         # extra completion defs (fpath)
 
-# --- editor (aliased `v=nvim` in .zshrc) ---
-brew "neovim"
+# --- editor + terminal ---
+brew "neovim"       # aliased `v=nvim` in .zshrc
+cask "ghostty"      # terminal emulator (config tracked in dot_config/ghostty)
 
 # --- local dev: ddev + Docker provider ---
 tap "ddev/ddev"
