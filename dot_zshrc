@@ -87,12 +87,18 @@ unsetopt MENU_COMPLETE      # do not auto-insert the first match
 unsetopt FLOW_CONTROL       # free up ^S / ^Q
 
 # --- 3. initialize compinit (cached; full run at most once/day) ------------
+# NOTE: use an array glob, not `[[ -n ...(#q..) ]]`: the (#q..) qualifier needs
+# EXTENDED_GLOB (off here), and [[ ]] does no filename generation, so that form
+# is a no-op that always runs the slow path. The bare (Nmh-24) qualifier in an
+# array assignment works regardless of options.
 autoload -Uz compinit
-if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qNmh+24) ]]; then
-  compinit                  # >24h old (or missing): full run w/ security check
+_zdump=(${ZDOTDIR:-$HOME}/.zcompdump(Nmh-24))   # non-empty iff dump exists & <24h old
+if (( $#_zdump )); then
+  compinit -C               # fresh: skip the security check, load fast
 else
-  compinit -C               # fresh: skip the check, load fast
+  compinit                  # missing or >24h old: full run w/ security check
 fi
+unset _zdump
 
 # --- 4. completion styling (zstyle) ----------------------------------------
 # Case-insensitive, then partial-word, then substring matching.
