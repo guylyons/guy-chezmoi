@@ -13,6 +13,8 @@ brew "yazi"       # terminal file manager (uses fd/rg/fzf/zoxide, already above)
 brew "git"        # modern git (newer than macOS-bundled Apple git)
 brew "jj"         # jujutsu: git-compatible version control
 brew "jq"         # command-line JSON processor
+brew "eza"        # modern ls replacement (aliased `ls=eza` in .zshrc)
+brew "mise"       # runtime version manager (activated in .zshrc; pins ruby)
 
 # --- required by .zshrc so the shell starts clean ---
 brew "fnm"                     # node version manager (eval on startup)
@@ -24,6 +26,11 @@ brew "zsh-completions"         # extra completion defs (fpath)
 # --- editor + terminal ---
 brew "neovim"       # aliased `v=nvim` in .zshrc
 cask "ghostty"      # terminal emulator (config tracked in dot_config/ghostty)
+
+# --- languages / PHP dev (on PATH in .zshrc) ---
+brew "go"              # go toolchain (~/go/bin on PATH)
+brew "composer"        # PHP dependency manager (~/.composer/vendor/bin on PATH)
+brew "postgresql@18"   # postgres client/server (psql on PATH)
 
 # --- local dev: ddev + Docker provider ---
 tap "ddev/ddev"

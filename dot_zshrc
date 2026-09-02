@@ -121,7 +121,7 @@ zstyle ':completion:*' cache-path "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompcach
 eval "$(fnm env --use-on-cd --shell zsh)"
 eval "$(zoxide init zsh)"
 source <(fzf --zsh) 2>/dev/null || { [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh; }
-eval "$(~/.local/bin/mise activate zsh)"   # manages ruby (see ~/.config/mise/config.toml)
+command -v mise >/dev/null && eval "$(mise activate zsh)"   # manages ruby (see ~/.config/mise/config.toml)
 
 # jj completions
 source <(jj util completion zsh) 2>/dev/null
