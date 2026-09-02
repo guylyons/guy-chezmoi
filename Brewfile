@@ -10,6 +10,7 @@ brew "bun"        # JS runtime / package manager
 brew "pnpm"       # fast, disk-efficient JS package manager
 brew "zoxide"     # smarter cd
 brew "yazi"       # terminal file manager (uses fd/rg/fzf/zoxide, already above)
+brew "git"        # modern git (newer than macOS-bundled Apple git)
 brew "jj"         # jujutsu: git-compatible version control
 brew "jq"         # command-line JSON processor
 
