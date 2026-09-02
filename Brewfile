@@ -24,8 +24,10 @@ brew "zsh-syntax-highlighting" # sourced by .zshrc
 brew "zsh-completions"         # extra completion defs (fpath)
 
 # --- editor + terminal ---
-brew "neovim"       # aliased `v=nvim` in .zshrc
-cask "ghostty"      # terminal emulator (config tracked in dot_config/ghostty)
+brew "neovim"                # aliased `v=nvim` in .zshrc
+cask "ghostty"               # terminal emulator (config tracked in dot_config/ghostty)
+cask "visual-studio-code"    # VS Code editor
+cask "dbeaver-community"      # database GUI client
 
 # --- languages / PHP dev (on PATH in .zshrc) ---
 brew "go"              # go toolchain (~/go/bin on PATH)
