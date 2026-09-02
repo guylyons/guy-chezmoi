@@ -28,6 +28,8 @@ brew "neovim"                # aliased `v=nvim` in .zshrc
 cask "ghostty"               # terminal emulator (config tracked in dot_config/ghostty)
 cask "visual-studio-code"    # VS Code editor
 cask "dbeaver-community"      # database GUI client
+tap "d12frosted/emacs-plus"
+cask "emacs-plus-app@master" # GNU Emacs dev build (config cloned via .chezmoiexternal.toml)
 
 # --- languages / PHP dev (on PATH in .zshrc) ---
 brew "go"              # go toolchain (~/go/bin on PATH)
