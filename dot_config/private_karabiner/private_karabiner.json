@@ -5,6 +5,16 @@
             "complex_modifications": {
                 "rules": [
                     {
+                        "description": "Tap Left Command to open Launchpad",
+                        "manipulators": [
+                            {
+                                "from": { "key_code": "left_command" },
+                                "to_if_alone": [{ "key_code": "launchpad" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "Enter held is Control, tap is Enter",
                         "manipulators": [
                             {
@@ -20,7 +30,6 @@
                     },
                     {
                         "description": "Enter sends Escape when held, Enter when tapped",
-                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": { "key_code": "return_or_enter" },

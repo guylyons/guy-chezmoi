@@ -1,0 +1,2 @@
+# Karabiner writes a dated backup here on every save; not config, don't track.
+.config/karabiner/automatic_backups
