@@ -222,3 +222,20 @@ vterm_prompt_end() {
 }
 setopt PROMPT_SUBST
 PROMPT=$PROMPT'%{$(vterm_prompt_end)%}'
+# >>> Photon CLI >>>
+case ":$PATH:" in
+  *:'/Users/guy/.photon/bin':*) ;;
+  *) export PATH="$PATH":'/Users/guy/.photon/bin' ;;
+esac
+# <<< Photon CLI <<<
+
+# asciiquarium fills the screen with ANSI black, which Material Ocean maps to
+# blue-gray; make color 0 true black while it runs, then restore the theme.
+asciiquarium() {
+  printf '\e]4;0;#000000\a'
+  { command asciiquarium "$@" } always { printf '\e]104;0\a' }
+}
+
+# glances uses Python curses linked to macOS system ncurses 5.4, which mangles
+# multibyte bar chars via the xterm-ghostty "rep" capability. Use a TERM without rep.
+alias glances='TERM=xterm-256color glances'

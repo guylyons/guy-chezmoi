@@ -31,3 +31,18 @@ window-save-state = always
 
 # Shell integration (better cursor, prompt jumping, no-newline sudo, window title)
 shell-integration-features = cursor,sudo,title
+
+# Control + backtick: show/hide from any application.
+keybind = global:cmd+backquote=toggle_quick_terminal
+
+# Full-width drawer, half the screen tall.
+quick-terminal-position = top
+quick-terminal-size = 50%
+quick-terminal-animation-duration = 0.15
+quick-terminal-screen = main
+quick-terminal-autohide = true
+
+# Smoked-glass appearance.
+background = #101521
+background-opacity = 0.90
+background-blur = true
