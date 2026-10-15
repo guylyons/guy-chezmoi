@@ -1,4 +1,5 @@
 font-family = Source Code Pro
+font-family = JetBrainsMono Nerd Font Mono
 font-size = 16
 
 theme = Material Ocean
@@ -21,7 +22,7 @@ copy-on-select = clipboard
 # Background
 # Solid pure-black background (overrides the theme's background color)
 background = #000000
-background-opacity = 1
+background-opacity = 0.9
 background-blur = true
 
 # macOS / editing quality-of-life
@@ -42,7 +43,3 @@ quick-terminal-animation-duration = 0.15
 quick-terminal-screen = main
 quick-terminal-autohide = true
 
-# Smoked-glass appearance.
-background = #101521
-background-opacity = 0.90
-background-blur = true
