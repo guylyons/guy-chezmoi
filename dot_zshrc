@@ -214,7 +214,8 @@ vterm_cmd() {
 
 # Change the buffer title based on info from the shell.
 autoload -U add-zsh-hook
-add-zsh-hook -Uz chpwd (){ print -Pn "\e]2;%m:%2~\a" }
+_title_cwd() { print -Pn "\e]2;%m:%2~\a" }
+add-zsh-hook chpwd _title_cwd
 
 # Sync directory/host with Emacs; "51;A" also marks the end of the prompt.
 vterm_prompt_end() {
@@ -240,3 +241,12 @@ asciiquarium() {
 # multibyte bar chars via the xterm-ghostty "rep" capability. Use a TERM without rep.
 alias glances='TERM=xterm-256color glances'
 alias f=fred
+
+# Ghostty titles the window with the command as typed ("f"); retitle with aliases
+# expanded ("fred"). Registered on first prompt so it runs after Ghostty's hook.
+_title_expanded() { print -rn -- $'\e]2;'"${2//[[:cntrl:]]}"$'\a' }
+_title_register() {
+  add-zsh-hook preexec _title_expanded
+  add-zsh-hook -d precmd _title_register
+}
+add-zsh-hook precmd _title_register
