@@ -34,4 +34,10 @@ fi
 
 echo "Installing packages from Brewfile..."
 # chezmoi sets CHEZMOI_SOURCE_DIR when running scripts.
-brew bundle --file="${CHEZMOI_SOURCE_DIR}/Brewfile"
+brewfile="${CHEZMOI_SOURCE_DIR}/Brewfile"
+# Homebrew won't load formulae from third-party taps until they're trusted;
+# the taps in the Brewfile are ones we chose, so trust them up front.
+for tap in $(brew bundle list --taps --file="$brewfile" 2>/dev/null); do
+  brew trust --tap "$tap"
+done
+brew bundle --file="$brewfile"
