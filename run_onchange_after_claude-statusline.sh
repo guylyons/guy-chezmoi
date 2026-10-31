@@ -7,6 +7,8 @@
 #   run_onchange_ = re-runs if this script changes
 #   after_        = runs after statusline.sh has been written
 set -eu
+# On a fresh machine jq was just installed by Homebrew and isn't on PATH yet.
+PATH="$PATH:/opt/homebrew/bin:/usr/local/bin:/home/linuxbrew/.linuxbrew/bin"
 
 settings="$HOME/.claude/settings.json"
 mkdir -p "$HOME/.claude"

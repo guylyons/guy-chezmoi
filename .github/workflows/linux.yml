@@ -1,0 +1,38 @@
+# Applies these dotfiles on a fresh Debian 13 machine on every push, so a
+# change made on the Mac can't silently break the Linux setup.
+name: linux
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    container: debian:trixie
+    timeout-minutes: 60
+    steps:
+      - name: Base packages and a non-root user (Homebrew refuses to run as root)
+        run: |
+          apt-get update
+          apt-get install -y curl git sudo ca-certificates
+          useradd -m -s /bin/bash guy
+          echo 'guy ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/guy
+
+      - uses: actions/checkout@v4
+
+      # nvim/emacs externals are skipped: they clone over SSH, which needs a key.
+      - name: chezmoi apply
+        run: |
+          chmod -R a+rX "$GITHUB_WORKSPACE"
+          sudo -u guy -H sh -c '
+            cd ~
+            sh -c "$(curl -fsLS get.chezmoi.io)" -- -b ~/.local/bin
+            ~/.local/bin/chezmoi apply --source "$1" --exclude=externals
+          ' sh "$GITHUB_WORKSPACE"
+
+      - name: zsh starts with no errors
+        run: |
+          sudo -u guy -H zsh -i -c 'echo ok' 2> /tmp/zsh-err.txt
+          cat /tmp/zsh-err.txt
+          test ! -s /tmp/zsh-err.txt

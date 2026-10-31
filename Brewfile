@@ -25,11 +25,14 @@ brew "zsh-completions"         # extra completion defs (fpath)
 
 # --- editor + terminal ---
 brew "neovim"                # aliased `v=nvim` in .zshrc
-cask "ghostty"               # terminal emulator (config tracked in dot_config/ghostty)
-cask "visual-studio-code"    # VS Code editor
-cask "dbeaver-community"      # database GUI client
-tap "d12frosted/emacs-plus"
-cask "emacs-plus-app@master" # GNU Emacs (master build; config cloned via .chezmoiexternal.toml)
+# Casks are macOS-only; on Linux install these GUI apps another way (see README).
+if OS.mac?
+  cask "ghostty"               # terminal emulator (config tracked in dot_config/ghostty)
+  cask "visual-studio-code"    # VS Code editor
+  cask "dbeaver-community"      # database GUI client
+  tap "d12frosted/emacs-plus"
+  cask "emacs-plus-app@master" # GNU Emacs (master build; config cloned via .chezmoiexternal.toml)
+end
 
 # --- languages / PHP dev (on PATH in .zshrc) ---
 brew "go"              # go toolchain (~/go/bin on PATH)
@@ -39,4 +42,4 @@ brew "uv"              # fast Python package/project manager (~/.local/bin on PA
 # --- local dev: ddev + Docker provider ---
 tap "ddev/ddev"
 brew "ddev"        # Drupal/PHP local dev (aliases cim/cex/cr in .zshrc)
-cask "orbstack"    # Docker provider for ddev (lightweight Docker Desktop alt)
+cask "orbstack" if OS.mac?   # Docker provider for ddev; on Linux use Docker Engine (see README)

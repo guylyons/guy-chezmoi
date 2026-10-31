@@ -3,17 +3,32 @@
 Managed with [chezmoi](https://chezmoi.io). Currently tracks the zsh shell
 setup plus the Homebrew packages it depends on.
 
-## New machine (macOS)
+## New machine (macOS or Debian/Ubuntu)
 
 One command installs chezmoi, pulls this repo, installs Homebrew + all
 packages, and drops the dotfiles in place:
 
 ```sh
-sh -c "$(curl -fsSL https://chezmoi.io/get)" -- init --apply <github-user>/dotfiles
+sh -c "$(curl -fsSL https://chezmoi.io/get)" -- init --apply git@github.com:guylyons/guy-chezmoi.git
 ```
 
-Replace `<github-user>/dotfiles` with wherever this repo lives once it's
-pushed to GitHub.
+Before running it, add this machine's SSH key to GitHub. The repo and the
+nvim/emacs configs are cloned over SSH.
+
+### Linux extras
+
+On Debian, first install the basics: `sudo apt install curl git`. The install
+script then installs Homebrew's prerequisites and zsh (it asks for your sudo
+password once). After that:
+
+- Make zsh your shell: `chsh -s "$(command -v zsh)"`, then log out and back in.
+- The Brewfile's casks (GUI apps) are macOS-only. On Linux install them
+  separately: `sudo apt install emacs`, plus Ghostty, VS Code and DBeaver from
+  their own sites. For ddev, install Docker Engine (https://docs.docker.com/engine/install/debian/).
+- Karabiner config is skipped on Linux.
+
+`.github/workflows/linux.yml` applies everything on a fresh Debian 13 machine
+on each push, so Linux breakage shows up as a failed GitHub Actions run.
 
 ## What's here
 
@@ -21,7 +36,7 @@ pushed to GitHub.
 | ------------------------------------ | ------------------------------------------- |
 | `dot_zshrc`                          | → `~/.zshrc`                                 |
 | `Brewfile`                           | packages installed on apply                  |
-| `run_once_before_install-packages.sh`| installs Homebrew + runs `brew bundle`       |
+| `run_onchange_before_install-packages.sh.tmpl` | installs Homebrew + runs `brew bundle` |
 
 ## Everyday use
 

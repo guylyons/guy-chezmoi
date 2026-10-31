@@ -7,6 +7,13 @@ export EDITOR="nvim"
 # =============================================================================
 # PATH  (ORDER MATTERS: earlier entries win)
 # =============================================================================
+# Homebrew: macOS sets this up in ~/.zprofile; Linux has nothing else that does.
+if [[ -z $HOMEBREW_PREFIX ]]; then
+  for _brew in /opt/homebrew/bin/brew /usr/local/bin/brew /home/linuxbrew/.linuxbrew/bin/brew; do
+    [[ -x $_brew ]] && eval "$($_brew shellenv)" && break
+  done
+  unset _brew
+fi
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.composer/vendor/bin:$PATH"
 export PATH="$HOME/.symfony5/bin:$PATH"
@@ -72,8 +79,8 @@ alias import='ddev drush mim guygrations_nodes'
 # zsh-completions (extra defs) + Homebrew's per-tool completions
 # (_brew, _docker, _rg, _fd, _uv, _aws, _fnm, _zoxide, ...).
 fpath=(
-  /opt/homebrew/share/zsh-completions
-  /opt/homebrew/share/zsh/site-functions
+  $HOMEBREW_PREFIX/share/zsh-completions
+  $HOMEBREW_PREFIX/share/zsh/site-functions
   $fpath
 )
 
@@ -136,15 +143,15 @@ source <(jj util completion zsh) 2>/dev/null
 # =============================================================================
 # fzf-tab: replaces the completion menu with an fzf picker. Load after
 # compinit + zstyles, before autosuggestions/syntax-highlighting.
-[ -f /opt/homebrew/share/fzf-tab/fzf-tab.zsh ] && source /opt/homebrew/share/fzf-tab/fzf-tab.zsh
+[ -f $HOMEBREW_PREFIX/share/fzf-tab/fzf-tab.zsh ] && source $HOMEBREW_PREFIX/share/fzf-tab/fzf-tab.zsh
 # Preview directory contents when completing `cd`, and let < / > switch groups.
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls -1 --color=always -- $realpath'
 zstyle ':fzf-tab:*' switch-group '<' '>'
 
-source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+[ -f $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh ] && source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Syntax highlighting MUST be sourced last.
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+[ -f $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # =============================================================================
 # Prompt  (starship, keep last so it wraps everything)
@@ -225,8 +232,8 @@ setopt PROMPT_SUBST
 PROMPT=$PROMPT'%{$(vterm_prompt_end)%}'
 # >>> Photon CLI >>>
 case ":$PATH:" in
-  *:'/Users/guy/.photon/bin':*) ;;
-  *) export PATH="$PATH":'/Users/guy/.photon/bin' ;;
+  *:"$HOME/.photon/bin":*) ;;
+  *) export PATH="$PATH":"$HOME/.photon/bin" ;;
 esac
 # <<< Photon CLI <<<
 
