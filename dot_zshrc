@@ -257,3 +257,5 @@ _title_register() {
   add-zsh-hook -d precmd _title_register
 }
 add-zsh-hook precmd _title_register
+
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi

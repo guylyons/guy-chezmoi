@@ -12,6 +12,7 @@ brew "zoxide"     # smarter cd
 brew "yazi"       # terminal file manager (uses fd/rg/fzf/zoxide, already above)
 brew "git"        # modern git (newer than macOS-bundled Apple git)
 brew "jj"         # jujutsu: git-compatible version control
+brew "worktrunk"  # wt: git worktree manager (shell hook in .zshrc)
 brew "jq"         # command-line JSON processor
 brew "eza"        # modern ls replacement (aliased `ls=eza` in .zshrc)
 brew "mise"       # runtime version manager (activated in .zshrc; pins ruby)
