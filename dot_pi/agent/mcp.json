@@ -1,0 +1,63 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@latest",
+        "--ignore-https-errors"
+      ],
+      "env": {}
+    },
+    "zvec_grep": {
+      "type": "stdio",
+      "command": "zg",
+      "args": [
+        "server",
+        "--stdio"
+      ]
+    },
+    "chrome-devtools": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "chrome-devtools-mcp@latest",
+        "--isolated",
+        "--headless"
+      ],
+      "env": {}
+    },
+    "notion": {
+      "type": "http",
+      "url": "https://mcp.notion.com/mcp"
+    },
+    "gitlab": {
+      "type": "http",
+      "url": "https://git.mainehealth.io/api/v4/mcp"
+    },
+    "lightpanda": {
+      "type": "stdio",
+      "command": "/Users/glyons/.local/bin/lightpanda",
+      "args": [
+        "mcp"
+      ],
+      "env": {}
+    },
+    "aws-mcp": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": [
+        "mcp-proxy-for-aws@latest",
+        "https://aws-mcp.us-east-1.api.aws/mcp",
+        "--metadata",
+        "INSTALL_SOURCE=aws-cli"
+      ],
+      "env": {
+        "AWS_PROFILE": "mho-admin",
+        "AWS_REGION": "us-east-1"
+      }
+    }
+  }
+}

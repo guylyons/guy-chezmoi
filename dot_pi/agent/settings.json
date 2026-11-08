@@ -1,0 +1,12 @@
+{
+  "lastChangelogVersion": "1.5.0",
+  "defaultProvider": "anthropic",
+  "defaultModel": "claude-opus-5-5",
+  "skills": [
+    "~/.claude/skills"
+  ],
+  "packages": [
+    "npm:billion-context"
+  ],
+  "deviceId": "97e391c8-4b5d-4262-b331-a0750ad61ce9"
+}
