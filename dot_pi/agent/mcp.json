@@ -1,15 +1,5 @@
 {
   "mcpServers": {
-    "playwright": {
-      "type": "stdio",
-      "command": "npx",
-      "args": [
-        "-y",
-        "@playwright/mcp@latest",
-        "--ignore-https-errors"
-      ],
-      "env": {}
-    },
     "zvec_grep": {
       "type": "stdio",
       "command": "zg",
@@ -36,14 +26,6 @@
     "gitlab": {
       "type": "http",
       "url": "https://git.mainehealth.io/api/v4/mcp"
-    },
-    "lightpanda": {
-      "type": "stdio",
-      "command": "/Users/glyons/.local/bin/lightpanda",
-      "args": [
-        "mcp"
-      ],
-      "env": {}
     },
     "aws-mcp": {
       "type": "stdio",
