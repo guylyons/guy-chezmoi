@@ -1,0 +1,70 @@
+{
+  "version": 3,
+  "skills": {
+    "orca-cli": {
+      "source": "stablyai/orca",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/stablyai/orca.git",
+      "ref": "49109f362f057cd2dc3d81cd378cb84d140c3dc5",
+      "skillPath": "skills/orca-cli/SKILL.md",
+      "skillFolderHash": "572f7952ac451a30a9c2451b472a639b125ee584",
+      "installedAt": "2026-09-28T16:44:34.046Z",
+      "updatedAt": "2026-10-20T13:53:57.589Z"
+    },
+    "find-skills": {
+      "source": "vercel-labs/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vercel-labs/skills.git",
+      "skillPath": "skills/find-skills/SKILL.md",
+      "skillFolderHash": "76a98a285cb0434f3d39e1a873823556330e398b",
+      "installedAt": "2026-09-28T16:44:36.819Z",
+      "updatedAt": "2026-09-28T16:44:36.819Z"
+    },
+    "computer-use": {
+      "source": "stablyai/orca",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/stablyai/orca.git",
+      "skillPath": "skills/computer-use/SKILL.md",
+      "skillFolderHash": "b59f27370a41225c22127e91da0c91cd2519f217",
+      "installedAt": "2026-09-28T16:45:00.024Z",
+      "updatedAt": "2026-09-28T16:45:00.024Z"
+    },
+    "orchestration": {
+      "source": "stablyai/orca",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/stablyai/orca.git",
+      "ref": "49109f362f057cd2dc3d81cd378cb84d140c3dc5",
+      "skillPath": "skills/orchestration/SKILL.md",
+      "skillFolderHash": "b0cd1d58b0c317cf7c3726fef7e6b1197c405246",
+      "installedAt": "2026-09-28T16:45:15.213Z",
+      "updatedAt": "2026-10-20T13:53:57.597Z"
+    },
+    "drupal-expert": {
+      "source": "madsnorgaard/drupal-agent-resources",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/madsnorgaard/drupal-agent-resources.git",
+      "skillPath": ".claude/skills/drupal-expert/SKILL.md",
+      "skillFolderHash": "4e9cd8a84489183112eb84f54fb51e8eadb28ee3",
+      "installedAt": "2026-10-28T20:05:16.194Z",
+      "updatedAt": "2026-10-28T20:05:16.194Z"
+    }
+  },
+  "dismissed": {
+    "findSkillsPrompt": true
+  },
+  "lastSelectedAgents": [
+    "amp",
+    "cline",
+    "codex",
+    "cursor",
+    "droid",
+    "gemini-cli",
+    "github-copilot",
+    "kilo",
+    "kimi-code-cli",
+    "opencode",
+    "pi",
+    "warp",
+    "zed"
+  ]
+}

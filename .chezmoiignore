@@ -8,3 +8,10 @@ README.md
 # macOS-only app.
 .config/karabiner
 {{ end }}
+
+# macOS Finder litter.
+**/.DS_Store
+
+# Claude app syncs these itself.
+.claude/skills/synced
+.claude/skills/learned
