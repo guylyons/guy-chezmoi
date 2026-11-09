@@ -43,4 +43,4 @@ brew "uv"              # fast Python package/project manager (~/.local/bin on PA
 # --- local dev: ddev + Docker provider ---
 tap "ddev/ddev"
 brew "ddev"        # Drupal/PHP local dev (aliases cim/cex/cr in .zshrc)
-cask "orbstack" if OS.mac?   # Docker provider for ddev; on Linux use Docker Engine (see README)
+cask "docker-desktop" if OS.mac?   # Docker provider for ddev; on Linux use Docker Engine (see README)
