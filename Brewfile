@@ -16,6 +16,7 @@ brew "worktrunk"  # wt: git worktree manager (shell hook in .zshrc)
 brew "jq"         # command-line JSON processor
 brew "eza"        # modern ls replacement (aliased `ls=eza` in .zshrc)
 brew "mise"       # runtime version manager (activated in .zshrc; pins ruby)
+brew "pi-coding-agent" # pi coding agent (config + extensions tracked in dot_pi)
 
 # --- required by .zshrc so the shell starts clean ---
 brew "fnm"                     # node version manager (eval on startup)
