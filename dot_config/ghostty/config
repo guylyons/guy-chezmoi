@@ -1,5 +1,4 @@
-font-family = Source Code Pro
-font-family = JetBrainsMono Nerd Font Mono
+font-family = FiraCode Nerd Font Mono
 font-size = 16
 
 theme = Material Ocean
@@ -11,7 +10,8 @@ window-decoration = true
 cursor-style = block
 cursor-style-blink = true
 
-scrollback-limit = 10000
+# Old `scrollback-limit` meant bytes (10000 B ≈ one screen); cap by lines instead.
+scrollback-limit-lines = 10000
 
 confirm-close-surface = false
 
@@ -33,7 +33,7 @@ window-save-state = always
 # Shell integration (better cursor, prompt jumping, no-newline sudo, window title)
 shell-integration-features = cursor,sudo,title
 
-# Control + backtick: show/hide from any application.
+# Cmd + backtick: show/hide from any application.
 keybind = global:cmd+backquote=toggle_quick_terminal
 
 # Full-width drawer, half the screen tall.
