@@ -1,0 +1,10 @@
+
+icons = true
+claude_command = "claude -p --output-format stream-json --verbose --include-partial-messages --permission-mode bypassPermissions"
+theme = "material-deep-ocean"
+
+# Same as ~/.config/nvim/lua/core/options.lua
+[set]
+tabstop = 2
+shiftwidth = 2
+expandtab = true
