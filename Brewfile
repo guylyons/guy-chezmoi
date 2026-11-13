@@ -32,8 +32,14 @@ if OS.mac?
   cask "ghostty"               # terminal emulator (config tracked in dot_config/ghostty)
   cask "visual-studio-code"    # VS Code editor
   cask "dbeaver-community"      # database GUI client
-  tap "d12frosted/emacs-plus"
-  cask "emacs-plus-app@master" # GNU Emacs (master build; config cloned via .chezmoiexternal.toml)
+  # GNU Emacs is built from guylyons/emacs-tuned by run_after_build-emacs-tuned.sh; these are its build deps.
+  brew "gcc"
+  brew "libgccjit"
+  brew "gnutls"
+  brew "tree-sitter"
+  brew "texinfo"
+  brew "autoconf"
+  brew "pkgconf"
 end
 
 # --- languages / PHP dev (on PATH in .zshrc) ---

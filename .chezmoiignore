@@ -7,6 +7,8 @@ README.md
 {{ if ne .chezmoi.os "darwin" }}
 # macOS-only app.
 .config/karabiner
+# macOS-only Emacs source (built by run_after_build-emacs-tuned.sh).
+github/emacs-tuned
 {{ end }}
 
 # macOS Finder litter.

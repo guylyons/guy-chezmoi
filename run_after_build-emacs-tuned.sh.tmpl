@@ -1,0 +1,28 @@
+{{ if eq .chezmoi.os "darwin" -}}
+#!/bin/sh
+# Builds GNU Emacs from guylyons/emacs-tuned (cloned by .chezmoiexternal.toml),
+# tuned for this Mac's CPU, and installs it to /Applications/Emacs.app.
+#
+# run_after_ = runs on every `chezmoi apply`, after the external repo is pulled.
+# It only rebuilds when the checked-out commit differs from the last one built,
+# so a normal apply costs one `git rev-parse`.
+set -eu
+
+src="$HOME/github/emacs-tuned"
+stamp="$HOME/.local/state/emacs-tuned/built-rev"
+
+rev=$(git -C "$src" rev-parse HEAD)
+if [ -d /Applications/Emacs.app ] && [ "$(cat "$stamp" 2>/dev/null)" = "$rev" ]; then
+  exit 0
+fi
+
+if pgrep -qx Emacs; then
+  echo "emacs-tuned: $rev not built yet; quit Emacs and rerun 'chezmoi apply' to rebuild." >&2
+  exit 0
+fi
+
+echo "emacs-tuned: building $rev (takes ~30 min)..."
+"$src/build-macos.sh"
+mkdir -p "$(dirname "$stamp")"
+echo "$rev" > "$stamp"
+{{ end -}}
