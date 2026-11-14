@@ -1,12 +1,38 @@
 {
-  "lastChangelogVersion": "1.5.0",
-  "defaultProvider": "anthropic",
-  "defaultModel": "claude-opus-5-5",
+  "lastChangelogVersion": "1.5.2",
+  "defaultProvider": "openai",
+  "defaultModel": "gpt-6.1-sol",
   "skills": [
-    "~/.claude/skills"
+    "~/.claude/skills",
+    "~/.pi/agent/git/github.com/figma/mcp-server-guide/workflow-skills"
   ],
   "packages": [
-    "npm:billion-context"
+    "npm:billion-context",
+    {
+      "source": "git:github.com/obra/superpowers",
+      "skills": []
+    },
+    "git:github.com/DietrichGebert/ponytail",
+    {
+      "source": "git:github.com/affaan-m/ECC",
+      "skills": [
+        "!skills/deep-research"
+      ]
+    },
+    {
+      "source": "git:github.com/mattpocock/skills",
+      "skills": [
+        "!skills/in-progress/software-factory"
+      ]
+    },
+    "git:github.com/figma/mcp-server-guide"
   ],
-  "deviceId": "97e391c8-4b5d-4262-b331-a0750ad61ce9"
+  "deviceId": "97e391c8-4b5d-4262-b331-a0750ad61ce9",
+  "warnings": {
+    "anthropicExtraUsage": false
+  },
+  "theme": "dark",
+  "extensionChangelogVersions": {
+    "{\"source\":\"git:github.com/affaan-m/ECC\",\"scope\":\"user\"}": "2.2.3"
+  }
 }
